@@ -5,8 +5,8 @@ api = Namespace('Cats',"APIs related to cat modules")
 cat_model=CatModel(api)
 
 cat_dummy_data=[
-            {'id': '1', 'name': 'Felix'},
-            {'id': '2', 'name': 'Mario'},
+            {'id': '1', 'name': 'Whiskers'},
+            {'id': '2', 'name': 'Fluffy'},
             {'id': '3', 'name': 'Shawn'}
 ]
 
