@@ -1,8 +1,9 @@
 from flask_restx import Namespace, Resource
 from models.cat import CatModel
 
-# add
 from flask import request
+
+from auth import login_required
 
 api = Namespace('Cats',"APIs related to cat modules")
 cat_model=CatModel(api)
@@ -16,6 +17,9 @@ cat_dummy_data=[
 @api.route('/')
 class CatResource(Resource):
  
+    
+    @api.doc(security="apikey")
+    @login_required
     @api.expect(cat_model.get_cats_expected_params())
     @api.marshal_with(cat_model.get_cats())
     def get(self):
@@ -35,6 +39,9 @@ class CatResource(Resource):
         
         return {"data":cats, "message":"Cats is not found"}, 404
 
+    
+    @api.doc(security="apikey")
+    @login_required
     @api.expect(cat_model.add_new_cat_expected_payload())
     @api.marshal_with(cat_model.add_new_cat())
     def post(self):
@@ -51,6 +58,9 @@ class CatResource(Resource):
 @api.route('/<cat_id>')
 class CatList(Resource):
 
+    
+    @api.doc(security="apikey")
+    @login_required
     @api.marshal_with(cat_model.get_cat())
     def get(self, cat_id):
         "Get cat"
