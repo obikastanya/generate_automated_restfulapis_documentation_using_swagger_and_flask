@@ -47,7 +47,7 @@ class CatResource(Resource):
     def post(self):
         "Add Cat"
         new_cat={
-            "id":int(cat_dummy_data[-1].get('id')) +1,
+            "id": str(int(cat_dummy_data[-1].get('id')) +1),
             "name":request.json.get("cat_name")
         }
         cat_dummy_data.append(new_cat)
@@ -55,7 +55,7 @@ class CatResource(Resource):
         return {"data":new_cat, "message":"OK"}, 200
 
 
-@api.route('/<cat_id>')
+@api.route('/<cat_id>/')
 class CatList(Resource):
 
     
@@ -65,6 +65,7 @@ class CatList(Resource):
     def get(self, cat_id):
         "Get cat"
         for cat in cat_dummy_data:
+            print(cat)
             if cat.get("id") == cat_id:
                 return {"data":cat, "message":"OK"}, 200
 
