@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_restx import Api
 
-from routes.cat import api as cat_namespace
-from routes.login import api as login_namespace
+from config import AppConfig
+
+from modules.cat.route import ns as cat_namespace
+from modules.login.route import ns as login_namespace
+
 
 api = Api(
     title="Pets Shop API",
@@ -19,12 +22,12 @@ api = Api(
     
 )
 
-api.add_namespace(cat_namespace, path='/cat')
 api.add_namespace(login_namespace, path='/login')
+api.add_namespace(cat_namespace, path='/cat')
 
 
 app =Flask(__name__)
-app.config["RESTX_MASK_SWAGGER"]=False
+app.config.from_object(AppConfig)
 api.init_app(app)
 
 if __name__=="__main__":
