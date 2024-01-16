@@ -1,10 +1,13 @@
 from flask import Flask
-from flask_restx import Api
+from api import Api
 
 from config import AppConfig
 
-from modules.cat.route import ns as cat_namespace
 from modules.login.route import ns as login_namespace
+from modules.fish.route import ns as fish_namespace
+from modules.cat.route import ns as cat_namespace
+from modules.sheep.route import ns as sheep_namespace
+from modules.dog.route import ns as dog_namespace
 
 
 api = Api(
@@ -23,7 +26,10 @@ api = Api(
 )
 
 api.add_namespace(login_namespace, path='/login')
+api.add_namespace(dog_namespace, path='/dog')
+api.add_namespace(fish_namespace, path='/fish')
 api.add_namespace(cat_namespace, path='/cat')
+api.add_namespace(sheep_namespace, path='/sheep')
 
 
 app =Flask(__name__)
